@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Anomaly Prediction</title>
+     <link rel="stylesheet" href="{{ url_for('static', filename='styles.css') }}">
+</head>
+<body>
+    <div class="container">
+        <h1>Anomaly Detection</h1>
+        <form action="/" method="post">
+            <label>CPU Usage (%):</label>
+            <input type="number" step="any" name="CPU_Usage" required>
+            <label>Memory Usage (%):</label>
+            <input type="number" step="any" name="Memory_Usage" required>
+            <label>Disk IO (MB/s):</label>
+            <input type="number" step="any" name="Disk_IO" required>
+            <label>Network Latency (ms):</label>
+            <input type="number" step="any" name="Network_Latency" required>
+            <label>Error Rate:</label>
+            <input type="number" step="any" name="Error_Rate" required>
+            <input type="submit" value="Predict">
+        </form>
+
+        {% if prediction is not none %}
+            <div class="result">
+                Prediction: {{ 'Anomaly' if prediction == 1 else 'Not an Anomaly' }}
+            </div>
+            <div class="input-values">
+                <p><strong>Input Values:</strong></p>
+                <p>CPU Usage: {{ CPU_Usage }}%</p>
+                <p>Memory Usage: {{ Memory_Usage }}%</p>
+                <p>Disk IO: {{ Disk_IO }} MB/s</p>
+                <p>Network Latency: {{ Network_Latency }} ms</p>
+                <p>Error Rate: {{ Error_Rate }}</p>
+            </div>
+        {% endif %}
+    </div>
+</body>
+</html>
